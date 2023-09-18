@@ -41,8 +41,8 @@ public class Main {
         Car car1 = new Car();
         Car car2 = new Car(2020);
         Car car3 = new Car(2019, "green");
-        Car car4 = new Car(2019, 180.0, "green");
-        Car car5 = new Car(2019, 180.0, 1540, "green");
+        Car car4 = new Car(2018, 180.0, "red");
+        Car car5 = new Car(2021, 220.0, 1540, "black");
 
     }
 }
