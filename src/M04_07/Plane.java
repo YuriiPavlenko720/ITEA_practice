@@ -21,7 +21,7 @@ public class Plane extends Vehicle{
         setY(0);
         setSpeed(0);
         setPrice(0);
-        setYear(0);
+        setYear(1900);
         this.number = 0;
         this.altitude = 0;
     }

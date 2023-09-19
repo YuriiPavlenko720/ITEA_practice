@@ -79,6 +79,6 @@ public class Vehicle {
         setY(0);
         setSpeed(0);
         setPrice(0);
-        setYear(0);
+        setYear(1900);
     }
 }

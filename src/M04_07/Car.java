@@ -16,7 +16,7 @@ public class Car extends Vehicle{
         setY(0);
         setSpeed(0);
         setPrice(0);
-        setYear(0);
+        setYear(1900);
     }
 
     public void info(){
