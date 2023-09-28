@@ -5,23 +5,13 @@ public class Ship extends Vehicle{
     private String port;
 
     public Ship(String name, double x, double y, double speed, double price, int year, int number, String port) {
-        setName(name);
-        setX(x);
-        setY(y);
-        setSpeed(speed);
-        setPrice(price);
-        setYear(year);
+        super(name, x, y, speed, price, year);
         this.number = number;
         this.port = port;
     }
 
     public Ship() {
-        setName("unknown ship");
-        setX(0);
-        setY(0);
-        setSpeed(0);
-        setPrice(0);
-        setYear(1900);
+        super("unknown ship", 0, 0, 0, 0, 1900);
         this.number = 0;
         this.port = "no home port";
     }

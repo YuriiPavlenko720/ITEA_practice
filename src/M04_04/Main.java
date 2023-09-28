@@ -6,35 +6,6 @@ package M04_04;
 // Перевантажити конструктори викликаючи конструктор із конструктора. Створити клас Main,
 // де створити екземпляри класу Машина з різними параметрами.
 
-class Car {
-    private int year;
-    private double speed;
-    private int weight;
-    private String color;
-
-    public Car() {
-    }
-
-    public Car(int year) {
-        this.year = year;
-    }
-
-    public Car(int year, String color) {
-        this.year = year;
-        this.color = color;
-    }
-
-    public Car(int year, double speed, String color) {
-        this(year, color);
-        this.speed = speed;
-    }
-
-    public Car(int year, double speed, int weight, String color) {
-        this(year, speed, color);
-        this.weight = weight;
-    }
-}
-
 public class Main {
     public static void main(String[] args) {
 

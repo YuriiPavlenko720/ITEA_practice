@@ -5,23 +5,13 @@ public class Plane extends Vehicle{
     private double altitude;
 
     public Plane(String name, double x, double y, double speed, double price, int year, int number, double altitude) {
-        setName(name);
-        setX(x);
-        setY(y);
-        setSpeed(speed);
-        setPrice(price);
-        setYear(year);
+        super(name, x, y, speed, price, year);
         this.number = number;
         this.altitude = altitude;
     }
 
     public Plane() {
-        setName("unknown plane");
-        setX(0);
-        setY(0);
-        setSpeed(0);
-        setPrice(0);
-        setYear(1900);
+        super("unknown plane", 0, 0, 0, 0, 1900);
         this.number = 0;
         this.altitude = 0;
     }

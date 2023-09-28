@@ -46,5 +46,6 @@ public class Main {
         ship1.info();
         System.out.println("\n");
         ship2.info();
+
     }
 }

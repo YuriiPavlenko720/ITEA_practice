@@ -8,11 +8,11 @@ package M04_09;
 public class Main {
     public static void main(String[] args) {
         Printer prnt1 = new Printer();
-        Printer prnt2 = new PrinterRed();
-        PrinterRed prnt3 = (PrinterRed) prnt2;
+        Printer prnt2 = new PrinterRed();          //Upcasting
+        PrinterRed prnt3 = (PrinterRed) prnt2;     //Downcasting
         Printer prnt4 = new PrinterGreen();
         PrinterGreen prnt5 = new PrinterGreen();
-        PrinterGreen prnt6 = (PrinterGreen) prnt4;
+        PrinterGreen prnt6 = (PrinterGreen) prnt4; //Downcasting
 
         prnt1.print("Перший");
         prnt2.print("Другий");

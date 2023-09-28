@@ -9,68 +9,18 @@ package M04_01;
 
 public class Main {
     public static void main(String[] args) {
-        Book.setTitle("Історія України-Руси");
-        Book.setAuthor("С.М.Грушевський");
-        Book.setContent("Том I\nТом II\nТом III\nТом IV\nТом V\nТом VI\nТом VII\nТом VIII\nТом IX\nТом X");
 
-        Title.show();
-        Author.show();
-        Content.show();
+        Title title1 = new Title("Історія України-Руси");
+        Author author1 = new Author("С.М.Грушевський");
+        Content content1 = new Content("Том I\nТом II\nТом III\nТом IV\nТом V\nТом VI\nТом VII\nТом VIII\nТом IX\nТом X");
 
-    }
-}
+        Book book1 = new Book(title1, author1, content1);
 
-class Book {
-    private static String title;
-    private static String author;
-    private static String content;
-
-    public static String getTitle() {
-        return title;
-    }
-
-    public static String getAuthor() {
-        return author;
-    }
-
-    public static String getContent() {
-        return content;
-    }
-
-    public static void setTitle(String title) {
-        Book.title = title;
-    }
-
-    public static void setAuthor(String author) {
-        Book.author = author;
-    }
-
-    public static void setContent(String content) {
-        Book.content = content;
-    }
-}
-
-class Title {
-    private static String title = Book.getTitle();
-
-    public static void show(){
-        System.out.println(title);
-    }
-}
-
-class Author {
-    private static String author = Book.getAuthor();
-
-    public static void show(){
-        System.out.println(author);
-    }
-}
-
-class Content {
-    private static String content = Book.getContent();
-
-    public static void show(){
-        System.out.println(content);
+        title1.show();
+        author1.show();
+        content1.show();
+        System.out.println("\n");
+        book1.show();
     }
 }
 
