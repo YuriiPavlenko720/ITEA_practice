@@ -1,6 +1,6 @@
 package M05_04;
 
-public class Car {
+public abstract class Car {
     private String model = "unknown model";
     private double power = 0.0;
     private int speed = 0;
@@ -9,9 +9,9 @@ public class Car {
 
     public Car(String model, double power, int speed, double price) {
         this.model = model;
-        this.power = power;
-        this.speed = speed;
-        this.price = price;
+        this.power = checkPower(power);
+        this.speed = checkSpeed(speed);
+        this.price = checkPrice(price);
     }
 
     public Car() {
@@ -49,7 +49,7 @@ public class Car {
         this.price = price;
     }
 
-    public double getYearOfManufacture() {
+    public int getYearOfManufacture() {
         return yearOfManufacture;
     }
 
@@ -57,12 +57,33 @@ public class Car {
         this.yearOfManufacture = yearOfManufacture;
     }
 
-    @Override
-    public String toString() {
-        return "Brand: " + model +
-                "\nPower: " + power +
-                "\nSpeed: " + speed +
-                "\nPrice: " + price +
-                "\nYear: " + yearOfManufacture + "\n";
+    public double checkPower (double power) {
+        if (power > 200) {
+            return 200;
+        } else if (power < 0) {
+            return 0;
+        } else {
+            return power;
+        }
+    }
+
+    public int checkSpeed (int speed) {
+        if (speed > 320) {
+            return 320;
+        } else if (speed < 0) {
+            return 0;
+        } else {
+            return speed;
+        }
+    }
+
+    public double checkPrice (double price) {
+        if (price > 50000) {
+            return 50000;
+        } else if (price < 0) {
+            return 0;
+        } else {
+            return price;
+        }
     }
 }

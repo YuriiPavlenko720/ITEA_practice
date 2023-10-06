@@ -1,7 +1,5 @@
 package M05_04;
 
-import java.util.Arrays;
-
 public class CarInfo {
     private Car[] list = new Car[0];
 
