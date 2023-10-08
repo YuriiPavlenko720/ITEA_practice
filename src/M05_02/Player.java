@@ -16,33 +16,22 @@ public class Player implements Playable, Recordable {
     }
 
     @Override
-
-    public void play(int track) {
-        System.out.println(this.name + " starting playing track #" + track + ".");
-    }
-
-    @Override
-    public void pause(int track) {
-        System.out.println(this.name + " paused playing track #" + track + ".");
-    }
-
-    @Override
-    public void stop(int track) {
-        System.out.println(this.name + " stopped playing track #" + track + ".");
-    }
-
-    @Override
-    public void record() {
-        System.out.println(this.name + " started recording.");
+    public void play() {
+        System.out.println(this.name + " is playing.");
     }
 
     @Override
     public void pause() {
-        System.out.println(this.name + " paused recording.");
+        System.out.println(this.name + " paused.");
     }
 
     @Override
     public void stop() {
-        System.out.println(this.name + " stopped recording.");
+        System.out.println(this.name + " stopped.");
+    }
+
+    @Override
+    public void record() {
+        System.out.println(this.name + " is recording.");
     }
 }

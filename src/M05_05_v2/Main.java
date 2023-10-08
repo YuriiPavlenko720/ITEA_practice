@@ -31,8 +31,11 @@ public class Main {
                 System.out.println("Невірний ввод");
         }
 
-        assert primeFactory != null;
-        primeFactory.createSet();
-        primeFactory.createdSetInfo();
+        if (primeFactory != null) {
+            primeFactory.createBatch();
+            Store.storedBatchInfo();
+        } else {
+            System.out.println("Помилка вибору набору");
+        }
     }
 }
