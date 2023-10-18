@@ -1,20 +1,23 @@
 package M07_01;
 
-import java.util.ArrayList;
-
 public class MyList<TYPE> {
-    private ArrayList<TYPE> list = new ArrayList<>(0);
+    private Object[] list = new Object[0];
 
     public void add(TYPE obj){
-        list.add(obj);
+        Object[] newList = new Object[list.length + 1];
+        for (int i = 0; i < list.length; i++) {
+            newList[i + 1] = list[i];
+        }
+        newList[0] = obj;
+        list = newList;
     }
 
-    public TYPE valueOf(int num){
-            return list.get(num);
+    public Object valueOf(int num){
+            return list[num];
     }
 
     public int length(){
-        return list.size();
+        return list.length;
     }
 
 }
