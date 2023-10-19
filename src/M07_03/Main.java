@@ -8,11 +8,11 @@ public class Main {
         list01.add("Кавун");
         list01.add("Вишня");
 
-        try {
+        System.out.println(list01);
+
         list01.add(1, "Яблуко");
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Значення індексу знаходиться за межами кількості елементів - " + e);
-        }
+
+        System.out.println(list01);
 
         list01.insertHead("Полуниця");
 
@@ -21,11 +21,9 @@ public class Main {
 
         list01.remove("Яблуко");
 
-        try {
-            list01.remove(2);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Значення індексу знаходиться за межами кількості елементів - " + e);
-        }
+        System.out.println(list01);
+
+        list01.remove(2);
 
         System.out.println(list01);
         System.out.println(list01.size());

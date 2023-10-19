@@ -1,22 +1,37 @@
 package M07_01;
 
 public class MyList<TYPE> {
-    private Object[] list = new Object[0];
+    private Object[] list = new Object[4];
 
-    public void add(TYPE obj){
-        Object[] newList = new Object[list.length + 1];
+    public void add(TYPE obj) {
+
+        boolean isSet = false;
         for (int i = 0; i < list.length; i++) {
-            newList[i + 1] = list[i];
+            if (list[i] == null) {
+                list[i] = obj;
+                isSet = true;
+                break;
+            }
         }
-        newList[0] = obj;
-        list = newList;
+        if (!isSet) {
+            Object[] newList = new Object[list.length + list.length / 2];
+            for (int i = 0; i < list.length; i++) {
+                newList[i] = list[i];
+            }
+            newList[list.length] = obj;
+            list = newList;
+        }
     }
 
-    public Object valueOf(int num){
+    public Object valueOf(int num) {
+        if (num >= 0 && num < list.length) {
             return list[num];
+        } else {
+            return null;
+        }
     }
 
-    public int length(){
+    public int length() {
         return list.length;
     }
 

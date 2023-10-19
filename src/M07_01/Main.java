@@ -8,12 +8,10 @@ public class Main {
         furniture.add("Sofa");
         furniture.add("Table");
         furniture.add("Bed");
+        furniture.add("Chair");
+        furniture.add("Armchair");
 
-        try {
-            System.out.println(furniture.valueOf(1));
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Значення індексу знаходиться за межами кількості елементів - " + e);
-        }
+        System.out.println(furniture.valueOf(3));
 
         System.out.println(furniture.length());
 
@@ -25,11 +23,7 @@ public class Main {
         distances.add(118.333);
         distances.add(0.0);
 
-        try {
-            System.out.println(distances.valueOf(2));
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Значення індексу знаходиться за межами кількості елементів - " + e);
-        }
+        System.out.println(distances.valueOf(2));
 
         System.out.println(distances.length());
     }
