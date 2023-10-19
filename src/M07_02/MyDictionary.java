@@ -1,32 +1,37 @@
 package M07_02;
 
 public class MyDictionary<KEY, VALUE> {
-    private Object[] keyList = new Object[0];
-    private Object[] valueList = new Object[0];
+    private Cell[] dictionaryList = new Cell[0];
 
-    public void addPair(KEY key, VALUE value){
-        Object[] newKeyList = new Object[keyList.length + 1];
-        Object[] newValueList = new Object[valueList.length + 1];
-        for (int i = 0; i < keyList.length; i++) {
-            newKeyList[i] = keyList[i];
-            newValueList[i] = valueList[i];
+    class Cell<K, V> {
+        K key;
+        V value;
+
+        public Cell(K key, V value) {
+            this.key = key;
+            this.value = value;
         }
-        newKeyList[newKeyList.length - 1] = key;
-        newValueList[newValueList.length - 1] = value;
-        keyList = newKeyList;
-        valueList = newValueList;
+    }
+
+        public void addPair(KEY key, VALUE value){
+        Cell[] newList = new Cell[dictionaryList.length + 1];
+        for (int i = 0; i < dictionaryList.length; i++) {
+            newList[i] = dictionaryList[i];
+        }
+        newList[newList.length - 1] = new Cell(key, value);
+        dictionaryList = newList;
     }
 
     public Object getAnswer(KEY key){
-        for (int i = 0; i < keyList.length; i++) {
-            if (key.equals(keyList[i])) {
-                return valueList[i];
+        for (int i = 0; i < dictionaryList.length; i++) {
+            if (key.equals(dictionaryList[i].key)) {
+                return dictionaryList[i].value;
             }
         }
         return null;
     }
 
     public int size(){
-        return keyList.length;
+        return dictionaryList.length;
     }
 }
