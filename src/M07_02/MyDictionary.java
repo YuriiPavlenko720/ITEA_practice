@@ -1,28 +1,32 @@
 package M07_02;
 
-import java.util.ArrayList;
+public class MyDictionary<KEY, VALUE> {
+    private Object[] keyList = new Object[0];
+    private Object[] valueList = new Object[0];
 
-public class MyDictionary<TYPE> {
-    private ArrayList<ArrayList<TYPE>> dictionary = new ArrayList<>(0);
-
-    public void addPair(TYPE key, TYPE answer){
-        ArrayList<TYPE> pair = new ArrayList<>(2);
-        pair.add(0, key);
-        pair.add(1, answer);
-        dictionary.add(pair);
+    public void addPair(KEY key, VALUE value){
+        Object[] newKeyList = new Object[keyList.length + 1];
+        Object[] newValueList = new Object[valueList.length + 1];
+        for (int i = 0; i < keyList.length; i++) {
+            newKeyList[i] = keyList[i];
+            newValueList[i] = valueList[i];
+        }
+        newKeyList[newKeyList.length - 1] = key;
+        newValueList[newValueList.length - 1] = value;
+        keyList = newKeyList;
+        valueList = newValueList;
     }
 
-    public Object getAnswer(TYPE key){
-        for (ArrayList pair: dictionary) {
-            if (key.equals(pair.get(0))) {
-                return pair.get(1);
-
+    public Object getAnswer(KEY key){
+        for (int i = 0; i < keyList.length; i++) {
+            if (key.equals(keyList[i])) {
+                return valueList[i];
             }
         }
         return null;
     }
 
     public int size(){
-        return dictionary.size();
+        return keyList.length;
     }
 }
