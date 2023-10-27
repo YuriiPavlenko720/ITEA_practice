@@ -4,7 +4,8 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Main {
-    static LinkedList<Integer> listMin = new LinkedList<>();
+    static int minimal;
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Input a size of the list (N): ");
@@ -20,14 +21,14 @@ public class Main {
             System.out.println("Input 1 number: ");
             list.add(scanner.nextInt());
             int min = list.get(0);
-            listMin.add(list.get(0));
+            minimal = list.get(0);
             int num;
             for (int i = 1; i < size; i++) {
                 System.out.println("Input " + (i + 1) + " number: ");
                 num = scanner.nextInt();
                 if (num < min) {
                     list.add(num);
-                    listMin.add(num);
+                    minimal = num;
                 } else {
                     list.add(num);
                 }
@@ -39,6 +40,6 @@ public class Main {
     }
 
     public static int getMinimumOptimized() {
-        return listMin.getLast();
+        return minimal;
     }
 }
