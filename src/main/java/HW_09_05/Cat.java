@@ -1,61 +1,26 @@
 package HW_09_05;
 
 public class Cat extends Animal{
-    private String name = "no name";
-    public boolean live = true;
-    protected String color = "no color";
-    final String nutrition = "predator";
+    private String name = "Tom";
+    public boolean real = true;
+    protected String color = "blue";
+    final String NUTRITION = "predator";
 
     public Cat() {
     }
 
-    public Cat(String name, String color) {
-        this.name = name;
-        this.color = color;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public boolean isLive() {
-        return live;
-    }
-
-    @Override
-    public void setLive(boolean live) {
-        this.live = live;
-    }
-
-    @Override
-    public String getColor() {
-        return color;
-    }
-
-    @Override
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    @Override
-    public String getNutrition() {
-        return nutrition;
-    }
 
     @Override
     public String toString() {
         return "Cat{" +
-                "name='" + name + '\'' +
-                ", live=" + live +
-                ", color='" + color + '\'' +
-                ", nutrition='" + nutrition + '\'' +
+                "\u001B[32m" + "name='" + name + '\'' +
+                "\u001B[33m" + ", is real=" + real +
+                "\u001B[31m" + ", color='" + color + '\'' +
+                "\u001B[34m" + ", nutrition='" + NUTRITION + '\'' +
+                "\u001B[36m" + ", num of legs='" + legs + '\'' +
+                "\u001B[35m" + ", regnum='" + REGNUM + '\'' +
+                "\u001B[32m" + ", domen='" + getDomen() + '\'' +
+                "\u001B[34m" + ", location='" + getLocation() + '\'' + "\u001B[0m" +
                 '}';
     }
 }
