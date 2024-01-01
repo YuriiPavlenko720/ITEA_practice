@@ -1,0 +1,21 @@
+<?xml version="addresses"?>
+<addressBook>
+    <city size="big">Kyiv
+        <street>Khreshatik
+            <number>1</number>
+            <number>2</number>
+            <number>3</number>
+        </street>
+        <street>Kyrylivska
+            <number>1</number>
+            <number>2</number>
+            <number>3</number>
+        </street>
+    </city>
+    <city size="small">Brovary
+        <street>Kyivska
+            <number>1</number>
+            <number>2</number>
+        </street>
+    </city>
+</addressBook>
