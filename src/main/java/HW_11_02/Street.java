@@ -14,6 +14,9 @@ public class Street {
         this.numbers = numbers;
     }
 
+    public Street() {
+    }
+
     public String getName() {
         return name;
     }
