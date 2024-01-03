@@ -36,7 +36,7 @@ public class Main {
 
         List<Street> streets2 = new ArrayList<>();
         streets2.add(kyivska);
-        City brovary = new City("Brovary", "amall", streets2);
+        City brovary = new City("Brovary", "small", streets2);
 
         List<City> cities = new ArrayList<>();
         cities.add(kyiv);
