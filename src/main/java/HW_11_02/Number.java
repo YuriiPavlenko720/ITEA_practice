@@ -1,9 +1,10 @@
 package HW_11_02;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
-@XmlRootElement(name = "number")
 public class Number {
     private int number;
 
@@ -17,8 +18,7 @@ public class Number {
     public int getNumber() {
         return number;
     }
-
-    @XmlElement(name = "number")
+    @XmlAttribute
     public void setNumber(int number) {
         this.number = number;
     }

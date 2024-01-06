@@ -1,10 +1,9 @@
 package HW_11_02;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import java.util.List;
 
-@XmlRootElement(name = "street")
+
 public class Street {
     private String name;
     private List<Number> numbers;
@@ -21,7 +20,7 @@ public class Street {
         return name;
     }
 
-    @XmlElement(name = "street")
+    @XmlElement
     public void setName(String name) {
         this.name = name;
     }

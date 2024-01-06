@@ -16,9 +16,9 @@ public class Main {
         numbers1.add(new Number(3));
 
         List<Number> numbers2 = new ArrayList<>();
-        numbers1.add(new Number(1));
-        numbers1.add(new Number(2));
-        numbers1.add(new Number(3));
+        numbers2.add(new Number(1));
+        numbers2.add(new Number(2));
+        numbers2.add(new Number(3));
 
         Street khreshatyk = new Street("Khreshatyk", numbers1);
         Street kyrylivska = new Street("Kyrylivska", numbers2);

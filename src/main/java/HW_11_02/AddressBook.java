@@ -1,11 +1,12 @@
 package HW_11_02;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.List;
 
-@XmlRootElement(name = "")
+@XmlRootElement(name = "addressBook")
 @XmlType(propOrder = { "cities" })
 public class AddressBook {
     private List<City> cities;

@@ -1,11 +1,12 @@
 package HW_11_02;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import com.sun.xml.txw2.annotation.XmlCDATA;
+import com.sun.xml.txw2.annotation.XmlNamespace;
+
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapters;
 import java.util.List;
 
-@XmlRootElement(name = "city")
 public class City {
 
     private String name;
@@ -24,9 +25,8 @@ public class City {
     public String getName() {
         return name;
     }
-
-    @XmlAttribute(name = "city")
-    public void setName(String name) {
+    @XmlElement
+public void setName(String name) {
         this.name = name;
     }
 
@@ -34,7 +34,7 @@ public class City {
         return size;
     }
 
-    @XmlAttribute(name = "size")
+    @XmlAttribute
     public void setSize(String size) {
         this.size = size;
     }
@@ -42,7 +42,6 @@ public class City {
     public List<Street> getStreets() {
         return streets;
     }
-
     @XmlElement(name = "street")
     public void setStreets(List<Street> streets) {
         this.streets = streets;
