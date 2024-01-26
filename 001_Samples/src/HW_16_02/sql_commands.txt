@@ -1,0 +1,17 @@
+CREATE DATABASE IF NOT EXISTS myTestDB03;
+
+USE myTestDB03;
+
+CREATE TABLE IF NOT EXISTS cars (
+    id integer NOT NULL AUTO_INCREMENT,
+    mark varchar(255),
+    model varchar(255),
+    color varchar(255),
+    max_speed integer,
+    PRIMARY KEY (id)
+    );
+
+INSERT INTO cars(mark, model, color, max_speed) VALUES
+('Opel', 'Astra', 'red', 180),
+('Daewoo', 'Lanos', 'silver', 160),
+('Ford', 'Mondeo', 'yellow', 190);
