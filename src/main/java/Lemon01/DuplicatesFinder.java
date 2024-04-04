@@ -133,12 +133,14 @@ class MyFileComparator {
                 return false;
             }
 
-            while ((line1 = reader1.readLine()) != null && (line2 = reader2.readLine()) != null) {
+            while (line1 != null && line2 != null) {
                 if (!line1.equals(line2)) {
                     return false;
                 }
+                line1 = reader1.readLine();
+                line2 = reader2.readLine();
             }
-            return reader1.readLine() == null && reader2.readLine() == null;
+            return line1 == null && line2 == null;
         }
     }
 }
