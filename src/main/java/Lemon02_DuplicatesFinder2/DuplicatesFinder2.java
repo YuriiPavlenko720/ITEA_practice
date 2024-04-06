@@ -21,6 +21,8 @@ import java.util.*;
 
 public class DuplicatesFinder2 {
     public static void main(String[] args) {
+        //таймер для порівняння ефективності компараторів
+        long time = System.currentTimeMillis();
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введіть шлях до папки:");
@@ -29,21 +31,26 @@ public class DuplicatesFinder2 {
         DuplicatesFinder2 copiesFinder = new DuplicatesFinder2();
         copiesFinder.findCopies(folderPath);
 
+        //час виконання для порівняння ефективності компараторів
+        System.out.println("Витрачений час: " + (System.currentTimeMillis() - time) + " мс.");
+
     }
 
-    public void findCopies(String path) {
+    public void findCopies(String dirPath) {
 
         List<List<String>> groupList = new ArrayList<>();
 
         try {
-            Map<String, List<File>> filesMap = new HashMap<>();
+            Map<Long, List<File>> filesMap = new HashMap<>();
 
-            Files.walk(Paths.get(path))
+            Files.walk(Paths.get(dirPath))
+                    .filter(path -> !path.startsWith(Paths.get("D:\\$RECYCLE.BIN\\S-1-5-18")))
+                    .filter(Files::isReadable)
                     .filter(Files::isRegularFile)
                     .forEach(file -> {
                         try {
                             // Отримання довжини файла та сортуування у відповідний список за довжиною
-                            String fileLength = Long.toString(Files.size(file));
+                            Long fileLength = Files.size(file);
                             List<File> fileList = filesMap.getOrDefault(fileLength, new ArrayList<>());
                             fileList.add(file.toFile());
                             filesMap.put(fileLength, fileList);
@@ -115,7 +122,42 @@ public class DuplicatesFinder2 {
     }
 }
 
+
 class MyFileComparator2 {
+    private static final int SIZE_OF_BUFFER = 1024;
+
+    public static boolean compareFiles(String path1, String path2) throws IOException {
+        try (FileInputStream str1 = new FileInputStream(path1);
+             FileInputStream str2 = new FileInputStream(path2)) {
+            byte[] buffer1 = new byte[SIZE_OF_BUFFER];
+            byte[] buffer2 = new byte[SIZE_OF_BUFFER];
+            int readBytes1;
+            int readBytes2;
+
+            do {
+                readBytes1 = str1.read(buffer1);
+                readBytes2 = str2.read(buffer2);
+
+                if (readBytes1 != readBytes2 || !isBytesArraysEqual(buffer1, buffer2, readBytes1)) {
+                    return false;
+                }
+            } while (readBytes1 != -1);
+            return true;
+        }
+    }
+
+    private static boolean isBytesArraysEqual(byte[] arr1, byte[] arr2, int size) {
+        for (int i = 0; i < size; i++) {
+            if (arr1[i] != arr2[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+//для порівняння компараторів
+class MyFileComparator3 {
     public static boolean compareFiles(String filePath1, String filePath2) throws IOException {
         try (FileInputStream str1 = new FileInputStream(filePath1);
              FileInputStream str2 = new FileInputStream(filePath2)) {
