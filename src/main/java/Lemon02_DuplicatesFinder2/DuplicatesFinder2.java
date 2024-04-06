@@ -6,11 +6,18 @@ package Lemon02_DuplicatesFinder2;
 
 //перевіряй не по рядках а по байтах ;
 
+// подумай як можна пришвидшити перевірку унікальності ;
+// зверни увагу на читабельність коду - має бути простим для розуміння та чистим.
+
+//закинь туди два фільми, спочатку різні і потім однакові, в різні підпапки
+
+//Про розмір подумай та про мапу
+
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 
 public class DuplicatesFinder2 {
     public static void main(String[] args) {
@@ -23,57 +30,66 @@ public class DuplicatesFinder2 {
         copiesFinder.findCopies(folderPath);
 
     }
-    public void findCopies(String path) {
-        File folder = new File(path);
 
-        List<File> listOfAllFiles = filesToList(folder);
+    public void findCopies(String path) {
 
         List<List<String>> groupList = new ArrayList<>();
 
-        if (listOfAllFiles != null && listOfAllFiles.size() > 1) {
-            for (int i = 0; i < listOfAllFiles.size() - 1; i++) {
-                if (listOfAllFiles.get(i).isFile() && listOfAllFiles.get(i + 1).isFile()) {
-                    try {
-                        if (groupList.size() == 0 || isNotInList(listOfAllFiles.get(i).getPath(), groupList)) {
-                            List<String> group = new ArrayList<>();
-                            group.add(listOfAllFiles.get(i).getPath());
+        try {
+            Map<String, List<File>> filesMap = new HashMap<>();
 
-                            for (int j = i; j < listOfAllFiles.size() - 1; j++) {
-                                if (listOfAllFiles.get(i).isFile() && listOfAllFiles.get(j + 1).isFile()) {
-                                    if (MyFileComparator2.compareFiles(listOfAllFiles.get(i).getPath(), listOfAllFiles.get(j + 1).getPath())) {
-                                        group.add(listOfAllFiles.get(j + 1).getPath());
+            Files.walk(Paths.get(path))
+                    .filter(Files::isRegularFile)
+                    .forEach(file -> {
+                        try {
+                            // Отримання довжини файла та сортуування у відповідний список за довжиною
+                            String fileLength = Long.toString(Files.size(file));
+                            List<File> fileList = filesMap.getOrDefault(fileLength, new ArrayList<>());
+                            fileList.add(file.toFile());
+                            filesMap.put(fileLength, fileList);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+
+            //порівняння файлів в кожній групі
+            for (List<File> sizeGroup : filesMap.values()) {
+                if (sizeGroup.size() > 1) {
+
+                    for (int i = 0; i < sizeGroup.size() - 1; i++) {
+
+                        try {
+                            if (groupList.size() == 0 || isNotInList(sizeGroup.get(i).getPath(), groupList)) {
+                                List<String> group = new ArrayList<>();
+                                group.add(sizeGroup.get(i).getPath());
+
+                                for (int j = i; j < sizeGroup.size() - 1; j++) {
+                                    if (MyFileComparator2.compareFiles(sizeGroup.get(i).getPath(), sizeGroup.get(j + 1).getPath())) {
+                                        group.add(sizeGroup.get(j + 1).getPath());
                                     }
                                 }
+                                groupList.add(group);
                             }
-                            groupList.add(group);
+
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
                         }
 
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
                     }
+
+                    //перевірка останнього елементу списку
+                    if (isNotInList(sizeGroup.get(sizeGroup.size() - 1).getPath(), groupList)) {
+                        List<String> group = new ArrayList<>();
+                        group.add(sizeGroup.get(sizeGroup.size() - 1).getPath());
+                        groupList.add(group);
+                    }
+
                 }
             }
-
-            //перевірка останнього елементу списку
-            if (isNotInList(listOfAllFiles.get(listOfAllFiles.size() - 1).getPath(), groupList)) {
-                List<String> group = new ArrayList<>();
-                group.add(listOfAllFiles.get(listOfAllFiles.size() - 1).getPath());
-                groupList.add(group);
-            }
-
-        } else {
-            System.out.println("Папки не існує, або в папці недостатня кількість файлів для порівняння.");
-            return;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
-        System.out.println("Унікальні файли:");
-        for (List<String> group : groupList) {
-            if (group.size() == 1) {
-                for (String filepath : group) {
-                    System.out.print(filepath + "\n");
-                }
-            }
-        }
 
         System.out.println("\nГрупи копій файлів:");
         System.out.println("_________________");
@@ -89,24 +105,6 @@ public class DuplicatesFinder2 {
         }
     }
 
-    public List<File> filesToList(File folder) {
-        List<File> fileList = new ArrayList<>();
-        if (folder.isDirectory()) {
-            File[] files = folder.listFiles();
-            if (files != null) {
-                for (File file : files) {
-                    if (file.isDirectory()) {
-                        fileList.addAll(filesToList(file));
-                    } else {
-                        fileList.add(file);
-                    }
-                }
-            }
-        }
-        return fileList;
-    }
-
-
     public boolean isNotInList(String path, List<List<String>> list) {
         for (List<String> group : list) {
             if (group.contains(path)) {
@@ -116,7 +114,6 @@ public class DuplicatesFinder2 {
         return true;
     }
 }
-
 
 class MyFileComparator2 {
     public static boolean compareFiles(String filePath1, String filePath2) throws IOException {
