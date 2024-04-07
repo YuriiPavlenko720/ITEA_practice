@@ -119,34 +119,22 @@ public class DuplicatesFinder3 {
 }
 
 class MyFileComparator3 {
-    private static final int SIZE_OF_BUFFER = 1024;
-
-    public static boolean compareFiles(String path1, String path2) throws IOException {
-        try (FileInputStream str1 = new FileInputStream(path1);
-             FileInputStream str2 = new FileInputStream(path2)) {
-            byte[] buffer1 = new byte[SIZE_OF_BUFFER];
-            byte[] buffer2 = new byte[SIZE_OF_BUFFER];
-            int readBytes1;
-            int readBytes2;
-
-            do {
-                readBytes1 = str1.read(buffer1);
-                readBytes2 = str2.read(buffer2);
-
-                if (readBytes1 != readBytes2 || !isBytesArraysEqual(buffer1, buffer2, readBytes1)) {
+    public static boolean compareFiles(String filePath1, String filePath2) throws IOException {
+        try (FileInputStream str1 = new FileInputStream(filePath1);
+             FileInputStream str2 = new FileInputStream(filePath2)) {
+            int byte1;
+            int byte2;
+            byte1 = str1.read();
+            byte2 = str2.read();
+            while (byte1 != -1 && byte2 != -1) {
+                if (byte1 != byte2) {
                     return false;
                 }
-            } while (readBytes1 != -1);
-            return true;
-        }
-    }
-
-    private static boolean isBytesArraysEqual(byte[] arr1, byte[] arr2, int size) {
-        for (int i = 0; i < size; i++) {
-            if (arr1[i] != arr2[i]) {
-                return false;
+                byte1 = str1.read();
+                byte2 = str2.read();
             }
+
+            return byte1 == -1 && byte2 == -1;
         }
-        return true;
     }
 }
