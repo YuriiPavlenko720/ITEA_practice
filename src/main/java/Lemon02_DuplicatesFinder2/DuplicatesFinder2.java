@@ -15,13 +15,13 @@ package Lemon02_DuplicatesFinder2;
 
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 
 public class DuplicatesFinder2 {
     public static void main(String[] args) {
-        //таймер для порівняння ефективності компараторів
+        //Таймер для порівняння ефективності компараторів
         long time = System.currentTimeMillis();
 
         Scanner scanner = new Scanner(System.in);
@@ -31,9 +31,8 @@ public class DuplicatesFinder2 {
         DuplicatesFinder2 copiesFinder = new DuplicatesFinder2();
         copiesFinder.findCopies(folderPath);
 
-        //час виконання для порівняння ефективності компараторів
+        //Час виконання для порівняння ефективності компараторів
         System.out.println("Витрачений час: " + (System.currentTimeMillis() - time) + " мс.");
-
     }
 
     public void findCopies(String dirPath) {
@@ -43,28 +42,34 @@ public class DuplicatesFinder2 {
         try {
             Map<Long, List<File>> filesMap = new HashMap<>();
 
-            Files.walk(Paths.get(dirPath))
-                    .filter(path -> !path.startsWith(Paths.get("D:\\$RECYCLE.BIN\\S-1-5-18")))
-                    .filter(Files::isReadable)
-                    .filter(Files::isRegularFile)
-                    .forEach(file -> {
+            Files.walkFileTree(Paths.get(dirPath), new SimpleFileVisitor<>() {
+                @Override
+                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+                    if (!attrs.isDirectory() && Files.isReadable(file)) {
                         try {
-                            // Отримання довжини файла та сортуування у відповідний список за довжиною
+                            // Отримання довжини файлу та сортування у відповідний список за довжиною
                             Long fileLength = Files.size(file);
                             List<File> fileList = filesMap.getOrDefault(fileLength, new ArrayList<>());
                             fileList.add(file.toFile());
                             filesMap.put(fileLength, fileList);
                         } catch (IOException e) {
-                            throw new RuntimeException(e);
+                            System.out.println("Помилка роботи з файлом " + file);
                         }
-                    });
+                    }
+                    return FileVisitResult.CONTINUE;
+                }
 
-            //порівняння файлів в кожній групі
+                public FileVisitResult visitFileFailed(Path file, IOException exc) {
+                    // Обробка помилок доступу до файлів
+                    System.out.println("Помилка доступу до " + file.getFileName());
+                    return FileVisitResult.CONTINUE;
+                }
+            });
+
+            //Порівняння файлів в кожній групі
             for (List<File> sizeGroup : filesMap.values()) {
                 if (sizeGroup.size() > 1) {
-
                     for (int i = 0; i < sizeGroup.size() - 1; i++) {
-
                         try {
                             if (groupList.size() == 0 || isNotInList(sizeGroup.get(i).getPath(), groupList)) {
                                 List<String> group = new ArrayList<>();
@@ -77,26 +82,22 @@ public class DuplicatesFinder2 {
                                 }
                                 groupList.add(group);
                             }
-
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
-
                     }
 
-                    //перевірка останнього елементу списку
+                    //Перевірка останнього елементу списку
                     if (isNotInList(sizeGroup.get(sizeGroup.size() - 1).getPath(), groupList)) {
                         List<String> group = new ArrayList<>();
                         group.add(sizeGroup.get(sizeGroup.size() - 1).getPath());
                         groupList.add(group);
                     }
-
                 }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
 
         System.out.println("\nГрупи копій файлів:");
         System.out.println("_________________");
@@ -108,7 +109,6 @@ public class DuplicatesFinder2 {
                 }
                 System.out.println("\n_________________");
             }
-
         }
     }
 
@@ -156,7 +156,8 @@ class MyFileComparator2 {
     }
 }
 
-//для порівняння компараторів
+
+//Побайтовий компаратор - для порівняння компараторів
 class MyFileComparator3 {
     public static boolean compareFiles(String filePath1, String filePath2) throws IOException {
         try (FileInputStream str1 = new FileInputStream(filePath1);
@@ -172,8 +173,35 @@ class MyFileComparator3 {
                 byte1 = str1.read();
                 byte2 = str2.read();
             }
-
             return byte1 == -1 && byte2 == -1;
+        }
+    }
+}
+
+
+//Построчний компаратор - для порівняння компараторів
+class MyFileComparator {
+    public static boolean compareFiles(String path1, String path2) throws IOException {
+        try (BufferedReader reader1 = new BufferedReader(new FileReader(path1));
+             BufferedReader reader2 = new BufferedReader(new FileReader(path2))) {
+            String line1;
+            String line2;
+            line1 = reader1.readLine();
+            line2 = reader2.readLine();
+
+            //перевірка чи не є один з файлів пустим
+            if ((line1 == null && line2 != null) || (line1 != null && line2 == null)) {
+                return false;
+            }
+
+            while (line1 != null && line2 != null) {
+                if (!line1.equals(line2)) {
+                    return false;
+                }
+                line1 = reader1.readLine();
+                line2 = reader2.readLine();
+            }
+            return line1 == null && line2 == null;
         }
     }
 }
