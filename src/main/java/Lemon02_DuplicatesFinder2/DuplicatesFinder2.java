@@ -21,13 +21,13 @@ import java.util.*;
 
 public class DuplicatesFinder2 {
     public static void main(String[] args) {
-        //Таймер для порівняння ефективності компараторів
-        long time = System.currentTimeMillis();
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введіть шлях до папки:");
         String folderPath = scanner.nextLine();
 
+        //Таймер для порівняння ефективності компараторів
+        long time = System.currentTimeMillis();
         DuplicatesFinder2 copiesFinder = new DuplicatesFinder2();
         copiesFinder.findCopies(folderPath);
 
